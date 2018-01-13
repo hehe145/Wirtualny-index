@@ -1,44 +1,36 @@
 package com.app.config;
 
 
+import com.app.model.Country;
+import com.app.repository.CountryRepository;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class RepositoriesInitializer {
 
-/*
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private CountryRepository countryRepository;
 
 
     @Bean
     InitializingBean init() {
 
         return () -> {
-            if(userRepository.findAll().isEmpty()) {
-
-                Role roleUser = new Role(Role.Types.ROLE_USER);
-                Role roleAdmin = new Role(Role.Types.ROLE_ADMIN);
-                roleRepository.save(roleUser);
-                roleRepository.save(roleAdmin);
-
-                User admin = new User("admin", true);
-                admin.setEmail("patrykrafal33@o2.pl");
-                admin.setRoles(new HashSet<>(Arrays.asList(roleAdmin)));
-                admin.setPassword(passwordEncoder.encode("admin"));
-
-                userRepository.save(admin);
-
+            if (countryRepository.findAll().isEmpty()) {
+                countryRepository.save(new Country("Niemcy"));
+                countryRepository.save(new Country("Rosja"));
+                countryRepository.save(new Country("Wielka Brytania"));
+                countryRepository.save(new Country("Polska"));
             }
-
         };
     }
-*/
+
 }
 
