@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Country {
 
+    @Min(0)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

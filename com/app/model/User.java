@@ -3,9 +3,14 @@ package com.app.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.pl.PESEL;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
@@ -22,21 +27,33 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private BigDecimal pesel;
+    @NotEmpty
+    private String name;
 
+    @NotEmpty
+    private String surname;
+
+    @PESEL
+    private String pesel;
+
+    @NotEmpty
     private String password;
 
     @Transient
     private String passwordConfirm;
 
+    @NotNull
+    @Past
     @Temporal(TemporalType.DATE)
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-
+    @Pattern(regexp = "^(0|[1-9][0-9]*)$")
+    @NotEmpty
     @Column(name = "phone_number")
-    private BigDecimal phoneNumber;
+    private String phoneNumber;
 
+    @Valid
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
