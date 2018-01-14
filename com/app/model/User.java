@@ -1,5 +1,6 @@
 package com.app.model;
 
+import com.app.validation.IllegalNumber;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,6 +49,7 @@ public class User {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
+    @IllegalNumber
     @Pattern(regexp = "^(0|[1-9][0-9]*)$")
     @NotEmpty
     @Column(name = "phone_number")

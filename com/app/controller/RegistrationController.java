@@ -3,6 +3,7 @@ package com.app.controller;
 import com.app.model.Country;
 import com.app.model.User;
 import com.app.service.CountryService;
+import com.app.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -23,6 +24,9 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/dziennik")
 public class RegistrationController {
+
+    @Autowired
+    private UserService userService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -53,7 +57,9 @@ public class RegistrationController {
             log.info(bindingResult);
             return "registrationForm";
         }
-        return "";
+        userService.save(user);
+        return "redirect:/dziennik/?reg";
     }
+
 
 }

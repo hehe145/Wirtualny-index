@@ -1,12 +1,19 @@
 package com.app.config;
 
 
+import com.app.controller.exception.BadPassword;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 @Log4j2
 public class AdviceController {
+
+    @ExceptionHandler(BadPassword.class)
+    public String badBassword() {
+        return "redirect:/dziennik/reg/?badPassword";
+    }
 
     /*
     @ExceptionHandler(VehicleNotFoundException.class)
@@ -37,10 +44,7 @@ public class AdviceController {
     }
 
 
-    @ExceptionHandler(BadPassword.class)
-    public String badBassword() {
-        return "redirect:/reg/?badPassword";
-    }
+
 
     @ExceptionHandler(BadPasswordCheck.class)
     public String badBasswordCheck() {
