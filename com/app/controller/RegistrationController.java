@@ -58,7 +58,19 @@ public class RegistrationController {
             return "registrationForm";
         }
         userService.save(user);
-        return "redirect:/dziennik/?reg";
+        return "redirect:/?reg";
+    }
+
+    @GetMapping("/password")
+    public String changePassword(Model model) {
+        model.addAttribute("user", new User());
+        return "password";
+    }
+
+    @PostMapping("/password")
+    public String postChangePassword(@ModelAttribute("user") User user) {
+        userService.sendNewPassword(user);
+        return "redirect:/login?newPassword";
     }
 
 

@@ -2,6 +2,8 @@ package com.app.service;
 
 
 import com.app.controller.exception.BadPassword;
+import com.app.controller.exception.BadUser;
+import com.app.model.PasswordGenerator;
 import com.app.model.Role;
 import com.app.model.User;
 import com.app.repository.UserRepository;
@@ -31,9 +33,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private SendEmailService sendEmailService;
+
+    @Autowired
+    private PasswordGenerator passwordGenerator;
+
     @Override
     public void save(User user) {
-        if (this.checkPassword(user.getPassword(), user.getPasswordConfirm())) {
+        User find = userRepository.findUserByPesel(user.getPesel());
+        if (this.checkPassword(user.getPassword(), user.getPasswordConfirm()) && find == null) {
             Role role = roleService.findRole(Role.Types.ROLE_USER);
             List roles = Arrays.asList(role);
             user.setRoles(new HashSet<>(roles));
@@ -47,6 +56,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkPassword(String password, String passwordConfirm) {
         return password.equals(passwordConfirm);
+    }
+
+
+    @Override
+    @Transactional
+    public void sendNewPassword(User user) {
+        User find = userRepository.findUserByPesel(user.getPesel());
+
+        if (find != null) {
+            passwordGenerator.randomString(6);
+            String password = "Twoje nowe hasło to " + passwordGenerator.getSb();
+            userRepository.changeUserPassword(passwordEncoder.encode(passwordGenerator.getSb()), user.getPesel());
+            sendEmailService.sendEmail(user.getEmail(), "Dziennik elektroniczny nowe hasło ", password);
+        } else {
+            throw new BadUser();
+        }
+
     }
 
     @Override

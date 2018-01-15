@@ -14,6 +14,7 @@ public class PasswordGenerator {
             z[i] = (char) (((int) (Math.random() * 26)) + (int) 'A');
             sb.append(z[i]);
         }
+
     }
 
     public StringBuilder getSb() {
