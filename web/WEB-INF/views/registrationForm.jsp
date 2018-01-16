@@ -16,7 +16,6 @@
 <body>
 <c:import url="shared/header.jsp">
     <c:param name="link" value="reg"></c:param>
-    <c:param name="count" value="${cookies}"></c:param>
 </c:import>
 
 <div class="container">
@@ -77,6 +76,21 @@
                     <form:errors path="email" class="error"></form:errors> <br/>
                     Podaj email:
                     <form:input path="email" type="email" cssClass="form-control" />
+                </div>
+                <div class="form-group">
+                    <form:errors path="ulica" class="error"></form:errors> <br/>
+                    Podaj Ulice:
+                    <form:input path="ulica"  cssClass="form-control" />
+                </div>
+                <div class="form-group">
+                    <form:errors path="nrDomu" class="error"></form:errors> <br/>
+                    Podaj nr domu lokalu:
+                    <form:input path="nrDomu"  cssClass="form-control" />
+                </div>
+                <div class="form-group">
+                    <form:errors path="miejscowosc" class="error"></form:errors> <br/>
+                    Podaj miejscowość:
+                    <form:input path="miejscowosc"  cssClass="form-control" />
                 </div>
                 <input type="submit" class="btn btn-block btn-success" value="Zarejestruj"/>
             </form:form>

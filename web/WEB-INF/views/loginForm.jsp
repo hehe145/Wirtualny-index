@@ -22,7 +22,6 @@
 
 <c:import url="shared/header.jsp">
     <c:param name="link" value="loguj"></c:param>
-    <c:param name="count" value="${cookies}"></c:param>
 </c:import>
 
 <div class="container">

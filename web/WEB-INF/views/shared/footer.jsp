@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Patryk
@@ -10,8 +11,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container">
     <div class="jumbotron">
-        <sec:authorize access="!isAuthenticated()">
-            @Patryk Rafał
-        </sec:authorize>
+        @Patryk Rafał
     </div>
 </div>
