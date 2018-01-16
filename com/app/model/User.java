@@ -69,5 +69,14 @@ public class User {
     @NotEmpty
     private String email;
 
+    @NotEmpty
+    private String ulica;
+
+    @NotEmpty
+    private String nrDomu;
+
+    @NotEmpty
+    private String miejscowosc;
+
 
 }

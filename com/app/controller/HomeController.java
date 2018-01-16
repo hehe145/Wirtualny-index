@@ -13,13 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 public class HomeController {
 
-    @Autowired
-    private PasswordGenerator passwordGenerator;
-
     @GetMapping("/")
     public String GetHomePage() {
-        passwordGenerator.randomString(6);
-        log.info(passwordGenerator.getSb());
         return "home";
     }
 

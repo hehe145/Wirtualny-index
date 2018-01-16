@@ -76,6 +76,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByPesel(String pesel) {
+        User user = userRepository.findUserByPesel(pesel);
+        return user;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findUserByPesel(s);

@@ -7,6 +7,7 @@ public interface UserService extends UserDetailsService {
 
     void save(User user);
     boolean checkPassword(String password, String passwordConfirm);
-
     void sendNewPassword(User user);
+
+    User findUserByPesel(String pesel);
 }
