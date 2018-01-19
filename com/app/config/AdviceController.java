@@ -3,6 +3,7 @@ package com.app.config;
 
 import com.app.controller.exception.BadPassword;
 import com.app.controller.exception.BadUser;
+import com.app.controller.exception.YouSaved;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,44 +22,11 @@ public class AdviceController {
         return "redirect:/dziennik/password/?badUser";
     }
 
-
-
-    /*
-    @ExceptionHandler(VehicleNotFoundException.class)
-    public String getNotFound() {
-        return "/errors/404";
-    }
-
-    @ExceptionHandler({DataIntegrityViolationException.class, JDBCConnectionException.class})
-    public String dataException() {
-        return "/errors/dbError";
-    }
-
-    @ExceptionHandler({org.springframework.beans.TypeMismatchException.class})
-    public String dataBadRequest() {
-        return "redirect:/?badRequest";
-    }
-
-    @ExceptionHandler(Exception.class)
-    public String exception(Model model,Exception e) {
-        e.printStackTrace();
-        return "/errors/exception";
+    @ExceptionHandler(YouSaved.class)
+    public String youSaved() {
+        return "redirect:/dziennik/mojeKonto/?saved";
     }
 
 
-
-
-
-
-    @ExceptionHandler(BadPasswordCheck.class)
-    public String badBasswordCheck() {
-        return "redirect:/password/?badPassword";
-    }
-
-    @ExceptionHandler(NotUser.class)
-    public String notUser() {
-        return "redirect:/password/?notUser";
-    }
-*/
 
 }

@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -49,6 +50,20 @@ public class User {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
+    @NotEmpty
+    private String email;
+
+    @NotEmpty
+    private String ulica;
+
+    @NotEmpty
+    private String nrDomu;
+
+    @NotEmpty
+    private String miejscowosc;
+
+    private String photoName;
+
     @IllegalNumber
     @Pattern(regexp = "^(0|[1-9][0-9]*)$")
     @NotEmpty
@@ -66,17 +81,14 @@ public class User {
             , inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @NotEmpty
-    private String email;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_directions"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "direction_id"))
+    private List<Direction> directions;
 
-    @NotEmpty
-    private String ulica;
 
-    @NotEmpty
-    private String nrDomu;
 
-    @NotEmpty
-    private String miejscowosc;
 
 
 }

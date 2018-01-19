@@ -3,6 +3,8 @@ package com.app.service;
 
 import com.app.controller.exception.BadPassword;
 import com.app.controller.exception.BadUser;
+import com.app.controller.exception.YouSaved;
+import com.app.model.Direction;
 import com.app.model.PasswordGenerator;
 import com.app.model.Role;
 import com.app.model.User;
@@ -16,10 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService {
@@ -39,10 +38,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordGenerator passwordGenerator;
 
+    @Autowired
+    private DirectionService directionService;
+
     @Override
     public void save(User user) {
         User find = userRepository.findUserByPesel(user.getPesel());
-        if (this.checkPassword(user.getPassword(), user.getPasswordConfirm()) && find == null) {
+        if (this.checkPassword(user.getPassword(), user.getPasswordConfirm())
+                && find == null) {
             Role role = roleService.findRole(Role.Types.ROLE_USER);
             List roles = Arrays.asList(role);
             user.setRoles(new HashSet<>(roles));
@@ -76,9 +79,61 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByEmail(String emial) {
+        User user = userRepository.findUserByEmail(emial);
+        return user;
+    }
+
+    @Override
     public User findUserByPesel(String pesel) {
         User user = userRepository.findUserByPesel(pesel);
         return user;
+    }
+
+    @Override
+    @Transactional
+    public void changePhoto(String photoName, String pesel) {
+        userRepository.changePhoto(photoName, pesel);
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(User user, String pesel) {
+        User find = userRepository.findUserByPesel(pesel);
+        if (find != null) {
+            if (user.getPassword().equals(user.getPasswordConfirm())) {
+                userRepository.changeUserPassword(passwordEncoder.encode(user.getPassword()), pesel);
+            }
+        } else {
+            throw new BadPassword();
+        }
+    }
+
+    @Override
+    public void saveDirectionToUser(long id, String name) {
+        User user = findUserByPesel(name);
+        Direction direction = directionService.findById(id);
+        if (userDirectionExist(direction, user) == false) {
+            List<Direction> directionList = new ArrayList<>();
+            directionList.add(direction);
+            user.setDirections(directionList);
+            userRepository.save(user);
+        } else {
+            throw new YouSaved();
+        }
+    }
+
+    private boolean userDirectionExist(Direction direction, User user) {
+        boolean is = false;
+        for (int i = 0; i < user.getDirections().size(); i++) {
+            if (user.getDirections().get(i).getName().equals(direction.getName())
+                    && user.getDirections().get(i).getDirectionTypes().
+                    getName().equals(direction.getDirectionTypes().getName())) {
+                is = true;
+                break;
+            }
+        }
+        return is;
     }
 
     @Override

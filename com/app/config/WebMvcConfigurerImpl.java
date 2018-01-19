@@ -18,6 +18,8 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
                 .addResourceLocations("/resources/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:///d:/photoIO/");
     }
 
     @Override

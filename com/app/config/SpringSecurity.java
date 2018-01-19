@@ -22,6 +22,8 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/webjars/**", "/").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/dziennik/mojeKonto").hasRole("USER")
+                .antMatchers("/dziennik/addPhoto").hasRole("USER")
+                .antMatchers("/dziennik/directions").hasRole("USER")
                 .and()
                 .formLogin().loginPage("/login")
                 .and()

@@ -15,6 +15,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -71,6 +72,18 @@ public class RegistrationController {
     public String postChangePassword(@ModelAttribute("user") User user) {
         userService.sendNewPassword(user);
         return "redirect:/login?newPassword";
+    }
+
+    @GetMapping("/haslo")
+    public String changePasswordInSystem(Model model) {
+        model.addAttribute("user", new User());
+        return "newPassword";
+    }
+
+    @PostMapping("/haslo")
+    public String postPasswordChange(@ModelAttribute("user") User user, Principal principal) {
+        userService.changePassword(user, principal.getName());
+        return "redirect:/dziennik/mojeKonto";
     }
 
 
