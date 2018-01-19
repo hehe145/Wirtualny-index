@@ -36,8 +36,6 @@
         <p>Miejsce składania dokumentów:</p>
         <ul>
             <li class="kierunek"><strong>kierunek informatyka -</strong>  ul. 3 Maja 54, drugie piętro, pok. nr 233, budynek Wydziału Nauk Ścisłych,</li>
-            <li class="kierunek"><strong> kierunek bioinżynieria produkcji żywności,</strong> rolnictwo, zootechnika – ul. Prusa 14, parter, pok. nr 19, budynek Wydziału Przyrodniczego.</li>
-
         </ul>
 
     </div>
