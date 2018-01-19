@@ -12,5 +12,8 @@
 <div class="container">
     <div class="jumbotron">
         @Patryk Rafał
+        <sec:authorize access="isAuthenticated()">
+            <sec:authentication property="principal.authorities"/>
+        </sec:authorize>
     </div>
 </div>

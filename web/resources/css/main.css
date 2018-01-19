@@ -19,5 +19,46 @@ div.container{
 
 div.col-md-4{
     border: 1px solid black;
-    min-height: 300px;
+    min-height: 100px;
+}
+
+div.topRejestracja{
+    margin-bottom: 10px;
+    font-size: x-large;
+}
+
+li.error{
+    background-color: #e3bab4;
+}
+
+li.ok{
+    background-color: greenyellow;
+}
+
+div.bootomRejestracja{
+    font-size: x-large;
+    color: white;
+    background: red;
+    height: 50px;
+}
+
+div.col-md-2{
+    background: #ccc;
+    height: 34px;
+    display: flex;
+    align-items: center;
+}
+
+tr td a{
+    color: #009;
+    text-decoration: none;
+}
+
+tr td a:hover{
+    text-decoration: underline;
+}
+
+h3.opis{
+    color: #009;
+    font-size: 18pt;
 }

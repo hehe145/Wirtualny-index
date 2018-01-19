@@ -23,11 +23,14 @@
                     <li ${param.link eq 'home' ? 'class="active"' : ''}>
                         <a href="<c:url value="/"></c:url> ">Home</a></li>
 
-                    <li ${param.link eq 'reg' ? 'class="active"' : ''}>
-                        <a href="<c:url value="/dziennik/reg" />"> Rejstracja </a>
-                    </li>
+                    <sec:authorize access="!isAuthenticated()">
+                        <li ${param.link eq 'reg' ? 'class="active"' : ''}>
+                            <a href="<c:url value="/dziennik/reg" />"> Rejstracja </a>
+                        </li>
+                    </sec:authorize>
+
                     <sec:authorize access="isAuthenticated()">
-                       <li>
+                       <li ${param.link eq 'mojeKonto' ? 'class="active"' : ''}>
                            <a href="<c:url value="/dziennik/mojeKonto" /> ">Moje konto</a>
                        </li>
                     </sec:authorize>
