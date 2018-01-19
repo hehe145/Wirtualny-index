@@ -26,7 +26,11 @@
                     <li ${param.link eq 'reg' ? 'class="active"' : ''}>
                         <a href="<c:url value="/dziennik/reg" />"> Rejstracja </a>
                     </li>
-
+                    <sec:authorize access="isAuthenticated()">
+                       <li>
+                           <a href="<c:url value="/dziennik/mojeKonto" /> ">Moje konto</a>
+                       </li>
+                    </sec:authorize>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

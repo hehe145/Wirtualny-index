@@ -8,3 +8,16 @@ span.error {
     display: flex;
     align-items: center;
 }
+
+ul>li.kierunek{
+    margin-bottom: 20px;
+}
+
+div.container{
+    margin-bottom: 20px;
+}
+
+div.col-md-4{
+    border: 1px solid black;
+    min-height: 300px;
+}
