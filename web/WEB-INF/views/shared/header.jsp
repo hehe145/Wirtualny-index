@@ -30,10 +30,20 @@
                     </sec:authorize>
 
                     <sec:authorize access="isAuthenticated()">
-                       <li ${param.link eq 'mojeKonto' ? 'class="active"' : ''}>
-                           <a href="<c:url value="/dziennik/mojeKonto" /> ">Moje konto</a>
-                       </li>
+                        <li ${param.link eq 'mojeKonto' ? 'class="active"' : ''}>
+                            <a href="<c:url value="/dziennik/mojeKonto" /> ">Moje konto</a>
+                        </li>
                     </sec:authorize>
+
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <li>
+                            <a href="<c:url value="/dziennik/setRecrutationDays" /> ">Ustaw liczbe dni rekrutcji</a>
+                        </li>
+                        <li ${param.link eq 'registrated' ? 'class="active"' : ''}>
+                            <a href="<c:url value="/dziennik/allRegistred" /> ">Pokaż zarejestrowane osoby</a>
+                        </li>
+                    </sec:authorize>
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

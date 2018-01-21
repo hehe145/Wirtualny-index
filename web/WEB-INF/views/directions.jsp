@@ -31,20 +31,38 @@
                         <th>Forma studiów</th>
                     </tr>
                     </thead>
-
                     <thead>
+                    <c:choose>
+                    <c:when test="${dni > 0 && not empty dni}">
+                    <p><strong>Rekrutacja trwa przez ${dni} dni</strong></p>
+                    <c:choose>
+                    <c:when test="${users.photoName.length() > 0 && users.maturaPhoto.length() > 0}">
                     <c:forEach items="${direction}" var="it">
                     <tr>
-                        <td><a href="kierunek/${it.id}" data-toggle="tooltip" title="Kliknij aby się zarejestrować!"> ${it.name}, ${it.directionTypes.name}</a> </td>
+                        <td><a href="kierunek/${it.id}" data-toggle="tooltip"
+                               title="Kliknij aby się zarejestrować!"> ${it.name}, ${it.directionTypes.name}</a></td>
                         <td>I stopień</td>
                         <td>${it.directionTypes.name}</td>
                     </tr>
                     </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <p>Wypełnij wszystkie pola poprawnie</p>
+                    </c:otherwise>
+                    </c:choose>
+
+                    </c:when>
+                    <c:otherwise>
+                    <p>
+                        Nie ma otwartej rekrutacji
+                    </p>
+                    </c:otherwise>
+                    </c:choose>
                     </tbody>
 
                 </table>
                 <c:if test="${direction.get(0).name == 'Informatyka'}">
-                    <jsp:include page="shared/informatyka.jsp" />
+                    <jsp:include page="shared/informatyka.jsp"/>
                 </c:if>
             </c:when>
         </c:choose>

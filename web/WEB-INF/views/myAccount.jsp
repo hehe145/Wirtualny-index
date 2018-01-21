@@ -20,6 +20,13 @@
 <div class="container">
     <div class="col-md-12">
 
+        <c:if test="${param.deleteUserDirection != null}">
+            <div class="alert alert-success alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong>Zostałeś pomyślnie usunięty z rekrutacji
+            </div>
+        </c:if>
+
         <c:if test="${param.directionOk != null}">
             <div class="alert alert-success alert-dismissable fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -37,7 +44,12 @@
         <hr/>
         <div class="col-md-8">
             <strong><p>Moje dane :</p></strong>
-            <p>${user.name} ${user.surname} (PESEL:) ${user.pesel}</p>
+            <p>
+                <a href="/dziennik/edycjaKonta/${user.id}" data-toggle="tooltip"
+                   title="Kliknij aby edytować dane">
+                    ${user.name} ${user.surname} (PESEL:) ${user.pesel}
+                </a>
+            </p>
             <p><strong>Obsluga hasła: </strong></p>
             <p>
             <p><a href="/dziennik/haslo">Zmień hasło</a></p></p>
@@ -47,7 +59,9 @@
                 <c:when test="${user.directions != null}">
             <ul>
                 <c:forEach items="${user.directions}" var="it">
-                    <li>${it.name} ${it.directionTypes.name}</li>
+                    <li><a href="/dziennik/directions"  data-toggle="tooltip" title="Wiecej informmacji"> ${it.name} ${it.directionTypes.name}</a> <a href="/dziennik/deleteDirection"
+                                                                data-toggle="tooltip"
+                                                                title="Kliknij aby zrezygnować z kierunku">x</a></li>
                 </c:forEach>
             </ul>
             </c:when>
@@ -60,14 +74,41 @@
             </p>
             <p>
                 <c:choose>
-                    <c:when test="${not empty user.photoName}">
-                        <img src="/images/${user.photoName}" class="img-rounded" alt="${user.photoName}" width="304"
-                             height="236">
-                    </c:when>
-                    <c:otherwise>
-                        Brak zdjęcia
-                    </c:otherwise>
-                </c:choose>
+                <c:when test="${not empty user.photoName}">
+            <p><strong> Twoje zdjęcie do legitymacji:</strong></p>
+            <img src="/images/${user.photoName}" class="w3-hover-opacity" alt="${user.photoName}" width="304"
+                 height="236" onclick="onClick(this)" />
+            </c:when>
+            <c:otherwise>
+                Brak zdjęcia
+            </c:otherwise>
+            </c:choose>
+            </p>
+            <p>
+                <c:choose>
+                <c:when test="${not empty user.maturaPhoto}">
+            <p><strong> Twoje zdjęcie matury:</strong></p>
+            <img src="/images/${user.maturaPhoto}" alt="${user.maturaPhoto}" width="304"
+                 height="236" onclick="onClick(this)" class="w3-hover-opacity" />
+
+            <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+                <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+                <div class="w3-modal-content w3-animate-zoom">
+                    <img id="img01" style="width:100%">
+                </div>
+            </div>
+            </c:when>
+            <c:otherwise>
+                Brak zdjęcia
+            </c:otherwise>
+            </c:choose>
+            <script>
+                function onClick(element) {
+                    document.getElementById("img01").src = element.src;
+                    document.getElementById("modal01").style.display = "block";
+                }
+            </script>
+
             </p>
 
         </div>
@@ -78,6 +119,9 @@
             <ol>
                 <li ${ empty user.photoName ? 'class="error"' : 'class="ok"'}   >
                     <a href="/dziennik/addPhoto">Dodaj zdjęcie</a>
+                </li>
+                <li ${ empty user.maturaPhoto ? 'class="error"' : 'class="ok"'}   >
+                    <a href="/dziennik/addMaturaPhoto">Dodaj skan wyników matury</a>
                 </li>
                 <li ${ empty user.directions ? 'class="error"' : 'class="ok"'}   >
                     <a href="/dziennik/directions">Wybierz kierunek studiów</a>
