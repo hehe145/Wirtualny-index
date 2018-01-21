@@ -4,10 +4,7 @@ package com.app.service;
 import com.app.controller.exception.BadPassword;
 import com.app.controller.exception.BadUser;
 import com.app.controller.exception.YouSaved;
-import com.app.model.Direction;
-import com.app.model.PasswordGenerator;
-import com.app.model.Role;
-import com.app.model.User;
+import com.app.model.*;
 import com.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -84,6 +81,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional
     @Override
     public User findUserByPesel(String pesel) {
         User user = userRepository.findUserByPesel(pesel);
@@ -122,6 +120,44 @@ public class UserServiceImpl implements UserService {
             throw new YouSaved();
         }
     }
+
+    @Override
+    public void deleteUserDirection(String userName) {
+        User user = userRepository.findUserByPesel(userName);
+        if (user != null) {
+            List<Direction> directions = new ArrayList<>();
+            user.setDirections(directions);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void editForm(User user) {
+        if (user != null) {
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void changeMaturaPhoto(String photo, String pesel) {
+        userRepository.changeMaturaPhoto(photo, pesel);
+    }
+
+    @Override
+    public List<User> getAllUsersRegistrated() {
+        List<User> userList = userRepository.findAll();
+        return userList;
+    }
+
+    @Override
+    public void deleteUserWithDirection(long id) {
+        User user = userRepository.findById(id).get();
+        List<Direction> directionList = new ArrayList<>();
+        user.setDirections(directionList);
+        userRepository.save(user);
+    }
+
 
     private boolean userDirectionExist(Direction direction, User user) {
         boolean is = false;

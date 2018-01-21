@@ -4,15 +4,14 @@ import com.app.validation.IllegalNumber;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.pl.PESEL;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -64,6 +63,8 @@ public class User {
 
     private String photoName;
 
+    private String maturaPhoto;
+
     @IllegalNumber
     @Pattern(regexp = "^(0|[1-9][0-9]*)$")
     @NotEmpty
@@ -86,9 +87,6 @@ public class User {
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "direction_id"))
     private List<Direction> directions;
-
-
-
 
 
 }
